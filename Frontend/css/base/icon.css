@@ -1,0 +1,64 @@
+.toast{
+    position: fixed;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    bottom: 16px;
+    right: 16px;
+    width: 300px;
+    height: 48px;
+    border-radius: 4px;
+    line-height: 48px;
+    background-color: #019160;
+    border-radius: 4px;
+    box-shadow: 0px 3px 6px #000;
+}
+.toast__icon{
+    float: left;
+    width: 24px;
+    height: 24px;
+    background-color: #bbbbbb;
+    background-image: url(../../assets/icon/search.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    left: 0;
+    top:50%;
+    transform: translate(50%,-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+}
+.toast__text{
+    margin-left: 50px;
+}
+.toast__button{
+    position: absolute;
+    right: 0;
+    top:50%;
+    transform: translate(-50%,-50%);
+    width: 24px;
+    height: 24px;
+    background-image: url(../../assets/icon/x.svg);
+    border-radius: 4px;
+}
+.toast__button:hover{
+    background-color: #bbbbbb;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.toast__icon--error{}
+.toast__icon--warning{}
+.toast__icon--success{}
+.toast__icon--info{}
+
+
+.icon-home{
+    background-image: url(../../assets/icon/dashboard.png);
+}
+.icon-eemployee{
+    background-image: url(../../assets/icon/dic-employee.png);
+}
+.icon-setting{
+    background-image: url(../../assets/icon/setting.png);
+}

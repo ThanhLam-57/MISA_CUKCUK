@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "pQV78yS52k0G9P12Cxgqvt2lUkIrm8QyiBxkdoOqq14=",
+  "Source": "misa.hust.ntlam.api",
+  "BasePath": "_content/misa.hust.ntlam.api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,57 @@
+.m-button{
+    cursor: pointer;
+    height: 40px;
+    background-color: #019160;
+    border-radius: 4px;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: center;
+    color: #ffffff;
+    border: none;
+    min-width: 100px;
+    /* background-color: #019160;
+    border-radius: 4px;
+    height: 40px;
+    color: #fff;
+    padding: 0 24px 0 24px;
+    text-align: center;
+    border: none;
+    min-width: 100px;
+    cursor: pointer;
+    outline: none; */
+}
+.m-button:hover{
+    background-color: #2fbe8e; 
+}
+.m-button:active{
+    background-color: #01b075;
+}
+.m-button-icon{
+    text-align: left;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-image: url(../../assets/icon/add.png);
+    background-repeat: no-repeat;
+    background-position-x: 16px;
+    background-position-y: center;
+    padding-left: 40px;
+}
+.button--cancel{
+    background-color: unset;
+    color: #000;
+}
+.button--cancel:hover{
+    background-color: #cccccc;
+}
+.button--cancel:active{
+    background-color: #cccccc;
+}
+.button-save{
+    text-align: left;
+    padding-right: 16px;
+    background-image: url(../../assets/icon/save-32.png);
+    background-repeat: no-repeat;
+    background-position-x: 6px;
+    background-position-y: center;
+    padding-left: 40px;
+}

@@ -1,0 +1,80 @@
+.table {
+    width: 100%;
+    margin: 0 16px 0 20px;
+}
+  
+.table th {
+    padding-right: 10px;
+}
+  
+.table td {
+    padding-right: 10px;
+    font-size: 13px;
+}
+  
+.table tr {
+    height: 48px;
+}
+
+tbody tr:hover{
+  background-color: #ccc;
+}
+
+tbody tr.row--selected{
+  background-color: #ccc;
+}
+  
+.table thead {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+}
+.table thead th {
+    text-align: left;
+    font-size: 13px;
+}
+  
+table,th,td {
+    border-bottom: 1px solid #ccc;
+    border-collapse: collapse;
+}
+.content-4 {
+    width: 100%;
+  }
+  
+  .page-nava {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    justify-content: center;
+  }
+  
+  .page-nava_item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    margin: 0 8px;
+    cursor: pointer;
+  }
+  
+  .page-nava_item-def {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    cursor: pointer;
+  }
+  
+  .table__paging {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    border-top: 1px solid #ccc;
+}

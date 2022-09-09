@@ -1,0 +1,27 @@
+.menu{
+    grid-row-start: 1;
+    grid-row-end: 3;
+    border-right: 1px solid #ccc;
+}
+.menu-item{
+    height: 44px;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.menu-item:hover{
+    background-color: #e5e5e5;
+    cursor: pointer;
+}
+.menu-item:active{
+    background-color: #019160;
+}
+.menu-item__icon{
+    width: 20px;
+    height: 20px;
+    margin-right: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}

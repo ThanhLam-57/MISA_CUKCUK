@@ -1,0 +1,77 @@
+.content{
+    height: calc(100vh - 60px);
+    padding-right: 24px;
+    padding-left: 24px;
+}
+.content-1{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.content-1__title{
+    margin: 0 0 0 20px;
+}
+.content-1__btn{
+    cursor: pointer;
+}
+.content-2{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.page-2_1-item{
+    display: flex;
+}
+.page-2_2-icon{
+    display: flex;
+}
+.btnRefresh{
+    background-image: url(../../assets/icon/refresh.png);
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.btnDelete{
+    border-radius: 4px;
+    height: 40px;
+    width: 40px;
+    border: 1px solid #bbbbbb;
+    background-image: url(../../assets/icon/delete.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 20px 20px;
+    cursor: pointer;
+}
+.btnDuplicate {
+    border-radius: 4px;
+    height: 40px;
+    width: 40px;
+    border: 1px solid #bbbbbb;
+    background-image: url(../../assets/icon/duplicate.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    cursor: pointer;
+}
+.content-3{
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    /* background-color: aqua; */
+    flex: 1;
+    justify-content: space-between;
+    height: calc(100% - 112px);
+}
+.table__content {
+    /* background-color: blueviolet; */
+    overflow-y: auto;
+    /* height: 200px; */
+    max-width: 100%;
+    flex: 1;
+    flex-basis: 740px;
+}

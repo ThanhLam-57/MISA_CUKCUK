@@ -1,0 +1,51 @@
+@import url(./base/button.css);
+@import url(./base/combobox.css);
+@import url(./base/dialog.css);
+@import url(./base/icon.css);
+@import url(./base/iput.css);
+@import url(./base/table.css);
+@import url(./layout/container.css);
+@import url(./layout/content.css);
+@import url(./layout/header.css);
+@import url(./layout/menu.css);
+body{
+    font-family: MISA Fonts;
+}
+
+@font-face {
+    font-family: MISA Fonts;
+    src: url(../assets/font/GoogleSans-Regular.otf);
+}
+@font-face {
+    font-family: MISA Bold;
+    src: url(../assets/font/GoogleSans-Bold.otf);
+}
+@font-face {
+    font-family: MISA Italic;
+    src: url(../assets/font/GoogleSans-Italic.otf);
+}
+body {
+    font-family: MISA Fonts;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    margin-right: 10px;
+}
+
+/* Chỉnh text */
+.text-align--left {
+    text-align: left;
+}
+
+.text-align--center {
+    text-align: center;
+}
+
+.text-align--right {
+    text-align: right;
+}
+
