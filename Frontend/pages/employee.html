@@ -64,21 +64,13 @@
             </div>
             <div class="content-2">
                 <div class="page-2_1-item">
-                    <input class="item_input" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" type="text">  
+                    <input id="filter-keysearch" class="item_input" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" type="text">  
                     <div class="row">
-                        <select title="ss" class="combobox" name="combobox" id="combobox">
-                            <option value="1">Tất cả phòng ban</option>
-                            <option value="1">Nu</option>
-                            <option value="1">Khac</option>
-                            <option value="1">oke</option>
+                        <select title="ss" class="combobox" name="combobox" id="filter-department">
                         </select>
                     </div>
                     <div class="row">
-                        <select title="ss" class="combobox" name="combobox" id="combobox">
-                            <option value="1">Tất cả vị trí</option>
-                            <option value="1">Nu</option>
-                            <option value="1">Khac</option>
-                            <option value="1">oke</option>
+                        <select title="ss" class="combobox" name="combobox" id="filter-position">
                         </select>
                     </div>
                 </div>
@@ -93,6 +85,7 @@
                     <table id="tbEmployeeList" class="table" border="0">
                         <thead>
                             <tr>
+                                <th propValue="Check" class="">Check</th>
                                 <th propValue="Sort" class="text-align--center" title="Số thứ tự" style="width:50px">STT</th>
                                 <th propValue="EmployeeCode" class="text-align--left" title="" style="width:150px">Mã nhân viên</th>
                                 <th propValue="EmployeeName" class="text-align--left" style="width:200px">Họ và tên</th>
@@ -137,11 +130,11 @@
                         </div>
                     </div>
                     <div class="page-nava__ringt">
-                        <select name="" class="combobox combobox-header">
-                            <option value="10">10 nhân viên/ trang</option>
-                            <option value="20">10 nhân viên/ trang</option>
-                            <option value="30">10 nhân viên/ trang</option>
-                            <option value="40">10 nhân viên/ trang</option>
+                        <select name="" class="combobox combobox-header" id="filter--page">
+                            <option value="10">15 nhân viên/ trang</option>
+                            <option value="25">25 nhân viên/ trang</option>
+                            <option value="50">50 nhân viên/ trang</option>
+                            <option value="100">100 nhân viên/ trang</option>
                         </select>
                     </div>
                 </div>
@@ -170,7 +163,7 @@
                           <div class="dialof-infor1">
                               <div class="row">
                                   <label for="">Ngày sinh</label>
-                                  <input class="input" propValue="DateOfBirth" title="rttt" type="date"/>
+                                  <input id="date-of-birth" class="input" propValue="DateOfBirth" title="rttt" type="date"/>
                               </div>
                               <div class="row">
                                   <label for="">Số CMTND/ Căn cước (<span class="input--required">*</span>)</label>
@@ -209,19 +202,12 @@
                           <div class="dialof-infor1">
                               <div class="row">
                                   <label for="">Vị trí</label>
-                                  <select title="ss" class="combobox" name="combobox" id="combobox" propValue="PositionCode">
-                                      <option class="item-select" value="P005">Nhân viên kiểm soát chất lượng</option>
-                                      <option value="P002">Phó chủ tịch</option>
-                                      <option value="P003">Trưởng phòng</option>
+                                  <select title="ss" class="combobox" name="combobox" id="combobox-position" propValue="PositionCode">
                                   </select>
                               </div>
                               <div class="row">
                                   <label for="">Phòng ban</label>
-                                  <select title="ss" class="combobox" name="combobox" id="combobox" propValue="DepartmentName">
-                                      <option value="1">Nam</option>
-                                      <option value="1">Nu</option>
-                                      <option value="1">Khac</option>
-                                      <option value="1">oke</option>
+                                  <select title="ss" class="combobox" name="combobox" id="combobox-department" propValue="DepartmentCode">
                                   </select>
                               </div>
                           </div>
@@ -238,15 +224,14 @@
                           <div class="dialof-infor1">
                               <div class="row">
                                   <label for="">Ngày gia nhập công ty</label>
-                                  <input class="input" title="rttt" type="date"/>
+                                  <input propValue="JoiningDate" class="input" title="rttt" type="date"/>
                               </div>
                               <div class="row">
                                   <label for="">Tình trạng công việc</label>
                                   <select propValue="WorkStatus" title="ss" class="combobox" name="combobox" id="combobox">
-                                      <option value="1">Nam</option>
-                                      <option value="1">Nu</option>
-                                      <option value="1">Khac</option>
-                                      <option value="1">oke</option>
+                                      <option value="0">Đang làm</option>
+                                      <option value="1">Nghỉ việc</option>
+                                      <option value="2">Khác</option>
                                   </select>
                               </div>
                           </div>

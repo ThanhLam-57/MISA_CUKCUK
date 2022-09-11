@@ -11,15 +11,16 @@ namespace misa.hust.ntlam.api.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
+        private string sqlconnectstring = "Server=3.0.89.182;Port=3306;Database=DAOTAO.AI.2022.NTLAM2;Uid=dev;Pwd=12345678;";
         [HttpGet]/// done
         public IActionResult GetAllEmployee()
         {
             try
             {
-                string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
+                //string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
                 var mySqlConnection = new MySqlConnection(sqlconnectstring);
 
-                string getAllEmployee = "SELECT * FROM employee LIMIT 100";
+                string getAllEmployee = "SELECT * FROM employee ORDER BY ModifiedDate DESC LIMIT 100";
 
                 var employees = mySqlConnection.Query<Employee>(getAllEmployee);
                 if (employees != null)
@@ -50,7 +51,7 @@ namespace misa.hust.ntlam.api.Controllers
         {
             try
             {
-                string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
+                //string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
                 var mySqlConnection = new MySqlConnection(sqlconnectstring);
 
                 string getEmployeeByIDCommand = "SELECT * FROM employee WHERE EmployeeId = @EmployeeID";
@@ -98,43 +99,44 @@ namespace misa.hust.ntlam.api.Controllers
         {
             try
             {
-                string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
+                //string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
                 var mySqlConnection = new MySqlConnection(sqlconnectstring);
 
                 string storedProcdureName = "Proc_employee_GetPaging";
 
                 var parameter = new DynamicParameters();
-                parameter.Add("@@Offset", (pageNumber - 1) * pageSize);
-                parameter.Add("@@limit", pageSize);
-                parameter.Add("@@Soft", "ModifiedDate DESC");
+                parameter.Add("@v_Offset", (pageNumber - 1) * pageSize);
+                parameter.Add("@v_limit", pageSize);
+                parameter.Add("@v_Soft", "ModifiedDate DESC");
 
+                var lstConditionKey = new List<string>();
                 var orConditions = new List<string>();
                 var andConditions = new List<string>();
                 string whereClause = "";
 
                 if(keyword != null)
                 {
-                    orConditions.Add($"EmployeeCode LIKE '%{keyword}%'");
-                    orConditions.Add($"EmployeeName LIKE '%{keyword}%'");
-                    orConditions.Add($"PhoneNumber LIKE '%{keyword}%'");
+                    lstConditionKey.Add($" EmployeeCode LIKE '%{keyword}%' ");
+                    lstConditionKey.Add($" EmployeeName LIKE '%{keyword}%' ");
+                    lstConditionKey.Add($" PhoneNumber LIKE '%{keyword}%' ");
                 }
-                if (orConditions.Count > 0)
+                if (lstConditionKey.Count > 0)
                 {
-                    whereClause = $"({string.Join("OR", orConditions)})";
+                    andConditions.Add($"({string.Join("OR", lstConditionKey)})");
                 }
                 if(positionID != null)
                 {
-                    andConditions.Add($"PositionID LIKE '%{positionID}%");
+                    andConditions.Add($" PositionID = '{positionID}'");
                 }
                 if (departmentID != null)
                 {
-                    andConditions.Add($"DepartmentID LIKE '%{departmentID}%");
+                    andConditions.Add($" DepartmentID = '{departmentID}'");
                 }
                 if (andConditions.Count > 0)
                 {
-                    whereClause += $" AND {string.Join(" AND ",andConditions)}";
+                    whereClause += $" {string.Join(" AND ",andConditions)}";
                 }
-                parameter.Add("@@Where", whereClause);
+                parameter.Add("@v_Where", whereClause);
 
                 //Thuc hien goij vaof DB de chay Proc voi tham so dau vao tren
                 var multipleResults =mySqlConnection.QueryMultiple(storedProcdureName, parameter, commandType: System.Data.CommandType.StoredProcedure);
@@ -175,11 +177,11 @@ namespace misa.hust.ntlam.api.Controllers
             try
             {
                 //KHơit tạo kết nối tới DB MýQSL
-                string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
+                //string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
                 var mySqlConnection = new MySqlConnection(sqlconnectstring);
                 //CHuẩn bị câu lệnh ínert into
-                string insertEmployee = "INSERT INTO employee (EmployeeId,EmployeeCode, EmployeeName, DateOfBirth, Gender, IdentityNumber, IdentityIssuedDate, IdentityIssuedPlace, Email, PhoneNumber, PositionID, PositionName, DepartmentID, DepartmentName, TaxCode, Salary, JoiningDate, WorkStatus, CreatedDate, CreatedBy, ModifiedDate, ModifiedBy) " +
-                    "VALUES(@EmployeeId,@EmployeeCode, @EmployeeName, @DateOfBirth, @Gender, @IdentityNumber, @IdentityIssuedDate, @IdentityIssuedPlace, @Email, @PhoneNumber, @PositionID, @PositionName, @DepartmentID, @DepartmentName, @TaxCode, @Salary, @JoiningDate, @WorkStatus, @CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy);";
+                string insertEmployee = "INSERT INTO employee (EmployeeId,EmployeeCode, EmployeeName, DateOfBirth, Gender, IdentityNumber, IdentityIssuedDate, IdentityIssuedPlace, Email, PhoneNumber, PositionID, PositionCode, PositionName, DepartmentID, DepartmentCode, DepartmentName, TaxCode, Salary, JoiningDate, WorkStatus, CreatedDate, CreatedBy, ModifiedDate, ModifiedBy) " +
+                    "VALUES(@EmployeeId,@EmployeeCode, @EmployeeName, @DateOfBirth, @Gender, @IdentityNumber, @IdentityIssuedDate, @IdentityIssuedPlace, @Email, @PhoneNumber, @PositionID, @PositionCode, @PositionName, @DepartmentID, @DepartmentCode, @DepartmentName, @TaxCode, @Salary, @JoiningDate, @WorkStatus, NOW(), @CreatedBy, NOW(), @ModifiedBy);";
                 //Chaun bi tham so dau vao
                 var employeeID = Guid.NewGuid();
                 var parameters = new DynamicParameters();
@@ -194,16 +196,16 @@ namespace misa.hust.ntlam.api.Controllers
                 parameters.Add("@Email",employee.Email);
                 parameters.Add("@PhoneNumber",employee.PhoneNumber);
                 parameters.Add("@PositionID",employee.PositionID);
+                parameters.Add("@PositionCode", employee.PositionCode);
                 parameters.Add("@PositionName",employee.PositionName);
                 parameters.Add("@DepartmentID",employee.DepartmentID);
+                parameters.Add("@DepartmentCode", employee.DepartmentCode);
                 parameters.Add("@DepartmentName",employee.DepartmentName);
                 parameters.Add("@TaxCode",employee.TaxCode);
                 parameters.Add("@Salary",employee.Salary);
                 parameters.Add("@JoiningDate",employee.JoiningDate);
                 parameters.Add("@WorkStatus",employee.WorkStatus);
-                parameters.Add("@CreatedDate",employee.CreatedDate);
                 parameters.Add("@CreatedBy",employee.CreatedBy);
-                parameters.Add("@ModifiedDate",employee.ModifiedDate);
                 parameters.Add("@ModifiedBy",employee.ModifiedBy);
                 //Thuc hien goi vao DB vaf thuc hien insert into voi cau lenh dau vao
                 int numberOfAffectedRow =  mySqlConnection.Execute(insertEmployee, parameters);
@@ -239,20 +241,20 @@ namespace misa.hust.ntlam.api.Controllers
         /// <param name="employee"Doi tuong can sua></param>
         /// <returns>ID nhan vien can sua</returns>
         [HttpPut]//done
-        [Route("employeeID")]
-        public IActionResult UpdateEmployee([FromBody] Employee employee, [FromRoute] Guid employeeID)
+        public IActionResult UpdateEmployee([FromBody] Employee employee)
         {
             try
             {
                 //KHơit tạo kết nối tới DB MýQSL
-                string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
+                //string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
                 var mySqlConnection = new MySqlConnection(sqlconnectstring);
                 //CHuẩn bị câu lệnh ínert into
-                string updateEmployee = "UPDATE" +
-                    "SET (@EmployeeId,@EmployeeCode, @EmployeeName, @DateOfBirth, @Gender, @IdentityNumber, @IdentityIssuedDate, @IdentityIssuedPlace, @Email, @PhoneNumber, @PositionID, @PositionName, @DepartmentID, @DepartmentName, @TaxCode, @Salary, @JoiningDate, @WorkStatus, @CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy);" +
-                    "WHERE EmployeeId = @EmployeeID";
+                string updateEmployee = "UPDATE employee " +
+                    "SET EmployeeCode= @EmployeeCode,EmployeeName= @EmployeeName,DateOfBirth= @DateOfBirth,Gender= @Gender,IdentityNumber= @IdentityNumber,IdentityIssuedDate= @IdentityIssuedDate,IdentityIssuedPlace= @IdentityIssuedPlace,Email= @Email,PhoneNumber= @PhoneNumber,PositionID= @PositionID,PositionCode= @PositionCode,PositionName= @PositionName,DepartmentID= @DepartmentID,DepartmentCode=@DepartmentCode,DepartmentName= @DepartmentName,TaxCode= @TaxCode,Salary= @Salary,JoiningDate= @JoiningDate,WorkStatus= @WorkStatus,ModifiedBy= NOW(),ModifiedBy= @ModifiedBy " +
+                    "WHERE EmployeeId = @EmployeeId";
                 //Chaun bi tham so dau vao
                 var parameters = new DynamicParameters();
+                parameters.Add("@EmployeeId", employee.EmployeeID);
                 parameters.Add("@EmployeeCode", employee.EmployeeCode);
                 parameters.Add("@EmployeeName", employee.EmployeeName);
                 parameters.Add("@DateOfBirth", employee.DateOfBirth);
@@ -263,22 +265,22 @@ namespace misa.hust.ntlam.api.Controllers
                 parameters.Add("@Email", employee.Email);
                 parameters.Add("@PhoneNumber", employee.PhoneNumber);
                 parameters.Add("@PositionID", employee.PositionID);
+                parameters.Add("@PositionCode", employee.PositionCode);
                 parameters.Add("@PositionName", employee.PositionName);
                 parameters.Add("@DepartmentID", employee.DepartmentID);
+                parameters.Add("@DepartmentCode", employee.DepartmentCode);
                 parameters.Add("@DepartmentName", employee.DepartmentName);
                 parameters.Add("@TaxCode", employee.TaxCode);
                 parameters.Add("@Salary", employee.Salary);
                 parameters.Add("@JoiningDate", employee.JoiningDate);
                 parameters.Add("@WorkStatus", employee.WorkStatus);
-                parameters.Add("@CreatedDate", employee.CreatedDate);
-                parameters.Add("@CreatedBy", employee.CreatedBy);
                 parameters.Add("@ModifiedDate", employee.ModifiedDate);
                 parameters.Add("@ModifiedBy", employee.ModifiedBy);
                 //Thuc hien goi vao DB vaf thuc hien insert into voi cau lenh dau vao
                 int numberOfAffectedRow = mySqlConnection.Execute(updateEmployee, parameters);
                 if (numberOfAffectedRow > 0)
                 {
-                    return StatusCode(StatusCodes.Status201Created, employeeID);
+                    return StatusCode(StatusCodes.Status201Created, employee.EmployeeID);
                 }
                 else
                 {
@@ -314,7 +316,7 @@ namespace misa.hust.ntlam.api.Controllers
         {
             try
             {
-                string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
+                //string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
                 var mySqlConnection = new MySqlConnection(sqlconnectstring);
 
                 string deleteEmployeeCommand = "DELETE FROM employee WHERE EmployeeId = @EmployeeID";
@@ -352,7 +354,7 @@ namespace misa.hust.ntlam.api.Controllers
         {
             try
             {
-                string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
+                //string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
                 var mySqlConnection = new MySqlConnection(sqlconnectstring);
 
                 string storedProcedureName = "Proc_employee_GetMaxCode";

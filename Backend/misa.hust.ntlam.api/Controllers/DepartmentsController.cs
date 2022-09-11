@@ -10,15 +10,15 @@ namespace misa.hust.ntlam.api.Controllers
     [ApiController]
     public class DepartmentsController : ControllerBase
     {
-        [HttpGet]
+        private string sqlconnectstring = "Server=3.0.89.182;Port=3306;Database=DAOTAO.AI.2022.NTLAM2;Uid=dev;Pwd=12345678;";
+        [HttpGet("get-all")]
         public IActionResult GetAllDepartment()
         {
             try
             {
-                string sqlconnectstring = "Server=127.0.0.1;Port=3306;Database=hust.21h.2022.ntlam;Uid=root;Pwd=123456789;";
                 var mySqlConnection = new MySqlConnection(sqlconnectstring);
 
-                string getAllDepartment = "SELECT*FROM department";
+                string getAllDepartment = "SELECT * FROM department";
 
                 var departments = mySqlConnection.Query<Department>(getAllDepartment);
                 if (departments != null)
